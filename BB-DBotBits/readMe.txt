@@ -40,15 +40,15 @@ Current Limitations:
 Available Modules:
 Here are the pre-built modules included in the ByteBots Library:
 
-const { discordReply } = require('./BB-DBotBits/discordReplies.js'); // Import Replies
-const { discordTickets } = require('./BB-DBotBits/discordTickets.js'); // Import discordTickets
-const { discordReverse } = require('./BB-DBotBits/discordReverse.js'); // Import discordReverse
-const { discordRadio } = require('./BB-DBotBits/discordRadio.js'); // Import discordRadio
-const { discordLogin } = require('./BB-DBotBits/discordHandler.js'); // Import discordLogin
-const { checkSpamRate } = require('./BB-DBotBits/checkSpamRate'); // Import checkSpamRate
-const { discordPurgeCommands } = require('./BB-DBotBits/discordPurge'); // Import purge command setup
-const { settings: discordRules } = require('./BB-DBotBits/discordRules'); // Import Rules
-const { discordReplyEmbed } = require('./BB-DBotBits/discordReplyEmbed.js'); // Import the embed function
+const { discordReply } = require('./node_modules/bb-dbotbits/discordReplies.js'); // Import Replies
+const { discordTickets } = require('./node_modules/bb-dbotbits/discordTickets.js'); // Import discordTickets
+const { discordReverse } = require('./node_modules/bb-dbotbits/discordReverse.js'); // Import discordReverse
+const { discordRadio } = require('./node_modules/bb-dbotbits/discordRadio.js'); // Import discordRadio
+const { discordLogin } = require('./node_modules/bb-dbotbits/discordHandler.js'); // Import discordLogin
+const { checkSpamRate } = require('./node_modules/bb-dbotbits/checkSpamRate'); // Import checkSpamRate
+const { discordPurgeCommands } = require('./node_modules/bb-dbotbits/discordPurge'); // Import purge command setup
+const { settings: discordRules } = require('./node_modules/bb-dbotbits/discordRules'); // Import Rules
+const { discordReplyEmbed } = require('./node_modules/bb-dbotbits/discordReplyEmbed.js'); // Import the embed function
 const token = require('./token'); // Import your bot token
 
 Example Function Calls:
