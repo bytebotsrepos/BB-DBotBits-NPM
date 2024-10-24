@@ -1,0 +1,47 @@
+
+# MD BB-DBotBits License (v1.2)
+
+Copyright © 2024 ByteBots, Coffee is My Only Friend (CIMOF)
+
+---
+
+## Permission Grant
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to use, copy, modify, merge, and publish the Software, subject to the following conditions:
+
+---
+
+## 1. Attribution & Credits
+
+- All copies or substantial portions of the Software must include a credit feature that can be invoked using the `/credits` command. 
+- The credit message must be **enabled by default** and may only be turned off or modified if a "Supporter" tier is purchased through the project's Buy Me a Coffee page. 
+- The default credit message is coded into the library.
+
+---
+
+## 2. Commercial Use
+
+- The Software may be used for commercial purposes **only** if a "Developer" tier is purchased through the project's Buy Me a Coffee page.
+- Without purchasing the Developer tier, any use of the Software for commercial gain is strictly **prohibited**.
+
+---
+
+## 3. No Redistribution
+
+- Redistribution of the Software, in original or modified form, is **not permitted**. 
+- This license only grants permission to use, copy, modify, and publish the Software. 
+- Any attempt to distribute the Software without explicit written consent from the authors is strictly **prohibited**.
+
+---
+
+## 4. Donation-Based Exceptions
+
+- Purchasing the "Supporter" tier grants the right to disable or modify the credit message for **non-commercial uses**.
+- Purchasing the "Developer" tier grants the right to use the Software for **commercial purposes**.
+- Donations can be made at: [Buy Me a Coffee - Coffee is My Only Friend](https://buymeacoffee.com/coffeeismyonlyfriend).
+
+---
+
+## 5. No Warranty
+
+THE SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

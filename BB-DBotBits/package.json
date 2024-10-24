@@ -1,0 +1,26 @@
+{
+  "name": "bb-dbotbits", 
+  "version": "0.0.1", 
+  "description": "A stupid simple discord bot creation library",
+  "main": "discordHandler.js",  
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bytebotsrepos/bb-dbotbits" 
+  },
+  "keywords": ["discord", "bot", "library"], 
+  "author": "Stevza | ByteBots | CIMOF",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/voice": "^0.17.0",
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.5",
+    "ffmpeg-static": "^5.2.0",
+    "fs": "^0.0.1-security",
+    "node-fetch": "^3.3.2",
+    "opusscript": "^0.0.8",
+    "tweetnacl": "^1.0.3"
+  }
+}
