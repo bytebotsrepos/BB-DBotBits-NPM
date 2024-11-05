@@ -1,6 +1,6 @@
 {
   "name": "bb-dbotbits", 
-  "version": "0.0.1", 
+  "version": "0.0.3", 
   "description": "A stupid simple discord bot creation library",
   "main": "discordHandler.js",  
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bytebotsrepos/bb-dbotbits" 
+    "url": "https://github.com/bytebotsrepos/BB-DBotBits-NPM" 
   },
   "keywords": ["discord", "bot", "library"], 
   "author": "Stevza | ByteBots | CIMOF",

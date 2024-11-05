@@ -23,7 +23,7 @@ function discordReverse() {
         if (message.content.toLowerCase().startsWith('!reverse')) {
             // Extract the reason after the command
             const reverse = message.content.slice('!reverse'.length).trim();
-            const reverseSTR = reverse.split('').reverse().join('').split(' ').reverse().join(' ')
+            const reverseSTR = reverse.split('').reverse().join('')
 
             if (reverse) {
                 // Send the the reverse string
