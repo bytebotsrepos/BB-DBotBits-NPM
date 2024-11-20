@@ -1,6 +1,6 @@
 {
   "name": "bb-dbotbits", 
-  "version": "0.0.3", 
+  "version": "0.0.4", 
   "description": "A stupid simple discord bot creation library",
   "main": "discordHandler.js",  
   "scripts": {
