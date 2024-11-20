@@ -19,7 +19,6 @@ let botStatusTxt = 'Created using BB-DBotBits' // The status you want the bot to
 let botDoing = 4 // 0 (Playing), 1 (Streaming), 2 (Listening), 3 (Watching), 4 (blank), 5 (Competing)
 
 
-
 /*
 Please enter role ID's you with to see tickets, I have used the same role over and
 over again. Please update all 3 and add as many as you need with , at the end apart 
@@ -56,5 +55,11 @@ promoteUserOnXP = false; // Turn off promote. This is usefull if you have newbie
 requiredPrmoteLevel = 5; // Level required to be promoted to next Discord rank
 promotionRoleId = 'YOUR_ROLE_ID';
 
-module.exports = { ticketAccess, rulesSettings, showCredits, botOnlineStatus, botStatusTxt, botDoing, showStatus, promoteUserOnXP, promotionRoleId, requiredPrmoteLevel};
+
+// Allow your website to be put in chat, bypassing the URL spam filter
+const allowedURL = false; // Change to true if you want to bypass
+const website = 'https://bytebots.net'; // change the url you want to have allowed in your chat. Do not worry about any slashes after your main url link
+
+
+module.exports = { allowedURL, website, ticketAccess, rulesSettings, showCredits, botOnlineStatus, botStatusTxt, botDoing, showStatus, promoteUserOnXP, promotionRoleId, requiredPrmoteLevel};
 
