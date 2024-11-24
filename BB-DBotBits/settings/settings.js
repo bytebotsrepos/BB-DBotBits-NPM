@@ -10,14 +10,11 @@
               
 Welcome to the settings section.
 */
-
-
 // Bot Status
 const showStatus = true;
 let botOnlineStatus = 'online' // You can set this to 'idle', 'dnd', or 'invisible'
 let botStatusTxt = 'Created using BB-DBotBits' // The status you want the bot to display
 let botDoing = 4 // 0 (Playing), 1 (Streaming), 2 (Listening), 3 (Watching), 4 (blank), 5 (Competing)
-
 
 /*
 Please enter role ID's you with to see tickets, I have used the same role over and
