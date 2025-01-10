@@ -78,6 +78,7 @@ client.once('ready', async () => {
     }
 });
 
-discordLogin(token);
+try{discordLogin(token);}
+catch(error){console.log("Connection Failed")}
 
 module.exports = { discordLogin, client, token };

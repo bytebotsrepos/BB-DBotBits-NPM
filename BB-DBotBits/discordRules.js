@@ -1,25 +1,24 @@
 /*
- _ __        _       ____        _       ____                      
-| __ ) _   _| |_ ___| __ )  ___ | |_ ___|  _ \ ___ _ __   ___  ___ 
-|  _ \| | | | __/ _ \  _ \ / _ \| __/ __| |_) / _ \ '_ \ / _ \/ __|
-| |_) | |_| | ||  __/ |_) | (_) | |_\__ \  _ <  __/ |_) | (_) \__ \
-|____/ \__, |\__\___|____/ \___/ \__|___/_| \_\___| .__/ \___/|___/
-       |___/                                      |_|              
-                    https://bytebots.net 
-Warning do not change anything in here unless you know what you are doing  
-Please ensure you edit the settins.js with the roleid and channel id          
-*/
+ * _ __        _       ____        _       ____
+ * | __ ) _   _| |_ ___| __ )  ___ | |_ ___|  _ \ ___ _ __   ___  ___
+ * |  _ \| | | | __/ _ \  _ \ / _ \| __/ __| |_) / _ \ '_ \ / _ \/ __|
+ * | |_) | |_| | ||  __/ |_) | (_) | |_\__ \  _ <  __/ |_) | (_) \__ \
+ * |____/ \__, |\__\___|____/ \___/ \__|___/_| \_\___| .__/ \___/|___/
+ *       |___/                                      |_|
+ *                    https://bytebots.net
+ * Warning do not change anything in here unless you know what you are doing
+ * Please ensure you edit the settins.js with the roleid and channel id
+ */
 
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, Events } = require('discord.js'); // Add the necessary imports
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, Events } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const { rulesSettings } = require('./settings/settings.js');
 const { client } = require('./discordHandler');
 
 const acceptedUsersFilePath = path.join(__dirname, 'acceptedUsers.json');
-const rulesFilePath = path.join(__dirname, '../rules.txt');
+const rulesFilePath = path.join(__dirname, '/../../rules.txt');
 
-// If rules.txt is not made in your root directory this will make it with the following rules.
 const defaultRulesContent = `Welcome to our Discord server! Please follow these rules:
 1. Be respectful to all members.
 2. No spamming, advertising, or self-promotion.
@@ -29,7 +28,6 @@ const defaultRulesContent = `Welcome to our Discord server! Please follow these 
 6. Keep content safe for work and family-friendly.
 Thank you for being part of our community!`
 
-// Ensure rules.txt exists, or create it with default rules
 function ensureRulesFile() {
     if (!fs.existsSync(rulesFilePath)) {
         fs.writeFileSync(rulesFilePath, defaultRulesContent, 'utf-8');
@@ -37,60 +35,69 @@ function ensureRulesFile() {
     }
 }
 
-// Load accepted users data from the JSON file
 function loadAcceptedUsers() {
     try {
         const data = fs.readFileSync(acceptedUsersFilePath, 'utf-8');
         return JSON.parse(data);
     } catch (error) {
-        return {}; // Return an empty object if the file does not exist or cannot be read
+        return {};
     }
 }
 
-// Save accepted users data to the JSON file
 function saveAcceptedUsers(data) {
     fs.writeFileSync(acceptedUsersFilePath, JSON.stringify(data, null, 2));
 }
 
-// Function to clear all messages in the rules channel. I put this in because if you restart the bot it reposts the rules
-// We could do without duplicate rules so I purge the channel upon every start up.
 async function clearRulesChannel(channel) {
     try {
         let messages;
+        let totalDeleted = 0;
         do {
             messages = await channel.messages.fetch({ limit: 100 });
-            if (messages.size > 0) {
-                await channel.bulkDelete(messages, true);
-                console.log(`Deleted ${messages.size} messages from the rules channel.`);
+            const deletableMessages = messages.filter(msg => (Date.now() - msg.createdTimestamp) < 1209600000); // 14 days limit
+            if (deletableMessages.size > 0) {
+                await channel.bulkDelete(deletableMessages, true);
+                totalDeleted += deletableMessages.size;
+                console.log(`Deleted ${deletableMessages.size} messages from the rules channel.`);
+            } else {
+                console.log('No deletable messages found within the 14-day limit.');
+                break;
             }
         } while (messages.size > 0);
+        console.log(`Deleted a total of ${totalDeleted} messages from the rules channel.`);
     } catch (error) {
         console.error('Failed to clear rules channel:', error);
     }
 }
 
-// Function to display rules as an embed with an accept button
+function splitTextIntoChunks(text, chunkSize) {
+    const chunks = [];
+    for (let i = 0; i < text.length; i += chunkSize) {
+        chunks.push(text.slice(i, i + chunkSize));
+    }
+    return chunks;
+}
+
 function displayRules(channel) {
     const rulesContent = fs.readFileSync(rulesFilePath, 'utf-8');
+    const chunks = splitTextIntoChunks(rulesContent, 4000);
 
-    // Create an embed with the title "Rules" and content from rules.txt
-    const rulesEmbed = new EmbedBuilder()
-        .setTitle('Rules')
-        .setDescription(rulesContent);
+    chunks.forEach((chunk, index) => {
+        const rulesEmbed = new EmbedBuilder()
+        .setTitle(index === 0 ? 'Rules' : `Rules (Part ${index + 1})`)
+        .setDescription(chunk);
 
-    // Prepare the "Accept" button
-    const acceptButton = new ButtonBuilder()
+        const acceptButton = new ButtonBuilder()
         .setCustomId('accept_rules')
         .setLabel('Accept')
         .setStyle(ButtonStyle.Success);
 
-    const row = new ActionRowBuilder().addComponents(acceptButton);
+        const row = new ActionRowBuilder().addComponents(acceptButton);
 
-    // Send the embed with the accept button
-    channel.send({ embeds: [rulesEmbed], components: [row] });
+        channel.send({ embeds: [rulesEmbed], components: index === chunks.length - 1 ? [row] : [] });
+    });
 }
 
-// Function to handle interaction when the accept button is clicked
 function setupAcceptHandler() {
     client.on(Events.InteractionCreate, async (interaction) => {
         if (!interaction.isButton()) return;
@@ -99,36 +106,30 @@ function setupAcceptHandler() {
         const serverId = interaction.guild.id;
 
         if (interaction.customId === 'accept_rules') {
-            // Load the accepted users data
             const acceptedUsers = loadAcceptedUsers();
 
-            // Check if the user has already accepted
             if (acceptedUsers[serverId] && acceptedUsers[serverId].includes(userId)) {
                 await interaction.reply({ content: 'You have already accepted the rules!', ephemeral: true });
                 return;
             }
 
             try {
-                // Add the role to the user
                 await interaction.member.roles.add(rulesSettings[0].roleId);
 
-                // Store the user's acceptance in the JSON file
                 if (!acceptedUsers[serverId]) {
                     acceptedUsers[serverId] = [];
                 }
                 acceptedUsers[serverId].push(userId);
                 saveAcceptedUsers(acceptedUsers);
 
-                // Update button to say "Thank you for accepting the rules"
                 const updatedButton = new ButtonBuilder()
-                    .setCustomId('thank_you_accepted')
-                    .setLabel('Thank you for accepting the rules')
-                    .setStyle(ButtonStyle.Success)
-                    .setDisabled(true);
+                .setCustomId('thank_you_accepted')
+                .setLabel('Thank you for accepting the rules')
+                .setStyle(ButtonStyle.Success)
+                .setDisabled(true);
 
                 const updatedRow = new ActionRowBuilder().addComponents(updatedButton);
 
-                // Update the interaction with the new button
                 await interaction.update({ components: [updatedRow] });
 
             } catch (error) {
@@ -139,15 +140,12 @@ function setupAcceptHandler() {
     });
 }
 
-// Main function to set up rules display and handler
 function discordRules() {
     client.once('ready', async () => {
         console.log(`Logged in as ${client.user.tag}!`);
 
-        // Ensure that rules.txt exists or create it with default rules
         ensureRulesFile();
 
-        // Ensure that rulesSettings[0].channelID exists
         if (!rulesSettings[0] || !rulesSettings[0].channelID) {
             console.error('Channel ID is not defined in settings.');
             return;
@@ -159,13 +157,10 @@ function discordRules() {
             return;
         }
 
-        // Clear all messages in the rules channel
         await clearRulesChannel(channel);
 
-        // Display the rules message as an embed
         displayRules(channel);
 
-        // Set up the accept button handler
         setupAcceptHandler();
     });
 }
