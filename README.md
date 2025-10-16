@@ -6,6 +6,8 @@ BB-DBotBits Library
 
 Please note this is early beta
 
+*I am currently working on a welcomer which will allow you to keep track of users who joined, as well as who invited them and will also post a welcome message to the user. I expect to launch this feature in early 2026*
+
 Your fastest route to creating Discord bots with minimal effort. Our library is designed to cater to developers at all skill levels, from beginners building their first bot to experienced users seeking to streamline their development process.
 
 About:
